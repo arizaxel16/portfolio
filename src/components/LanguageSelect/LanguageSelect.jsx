@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./LanguageSelect.scss"
 import ReactFlagsSelect from "react-flags-select";
-import { useLanguage } from "../../../context/Language/LanguageContext";
+import { useLanguage } from "../../context/Language/LanguageContext";
 import { en, es } from "./LanguageSelectStrings";
 
 function LanguageSelect() {

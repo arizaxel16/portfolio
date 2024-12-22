@@ -3,12 +3,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Splash.scss";
 import { useLanguage } from "../../context/Language/LanguageContext";
-import LanguageSelect from "../../components/generic/LanguageSelect/LanguageSelect";
+import LanguageSelect from "../../components/LanguageSelect/LanguageSelect";
 import { en, es } from "./SplashStrings";
 
 const Splash = () => {
+	// Navigation
 	const navigate = useNavigate();
 
+	// Language
+	const { language } = useLanguage();
+	const translations = language === "en" ? en : es;
+
+	// Vid Rendering
 	const bgVids = useMemo(
 		() => [
 			"https://videos.pexels.com/video-files/8721923/8721923-sd_960_506_25fps.mp4",
@@ -17,9 +23,6 @@ const Splash = () => {
 		],
 		[]
 	);
-
-	const { language } = useLanguage();
-	const translations = language === "en" ? en : es;
 
 	const [videoSrc, setVideoSrc] = useState(null);
 	const [isVideoLoaded, setIsVideoLoaded] = useState(false);
