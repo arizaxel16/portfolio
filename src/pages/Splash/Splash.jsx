@@ -2,24 +2,25 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Splash.scss";
-import { useLanguage } from '../../context/Language/LanguageContext';
-import { en, es } from './SplashStrings';
+import { useLanguage } from "../../context/Language/LanguageContext";
+import { en, es } from "./SplashStrings";
+import ReactFlagsSelect from "react-flags-select";
 
 const Splash = () => {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const bgVids = useMemo(
 		() => [
-            "https://videos.pexels.com/video-files/8721923/8721923-sd_960_506_25fps.mp4",
-            "https://videos.pexels.com/video-files/6754818/6754818-uhd_2560_1440_25fps.mp4",
-            "https://videos.pexels.com/video-files/8721654/8721654-uhd_2732_1440_25fps.mp4",
+			"https://videos.pexels.com/video-files/8721923/8721923-sd_960_506_25fps.mp4",
+			"https://videos.pexels.com/video-files/6754818/6754818-uhd_2560_1440_25fps.mp4",
+			"https://videos.pexels.com/video-files/8721654/8721654-uhd_2732_1440_25fps.mp4",
 		],
 		[]
 	);
 
-    const { language } = useLanguage();
+	const { language, newLanguage } = useLanguage();
 
-    const translations = language === 'en' ? en : es;
+	const translations = language === "en" ? en : es;
 
 	const [videoSrc, setVideoSrc] = useState(null);
 	const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -43,16 +44,32 @@ const Splash = () => {
 		checkVideoAvailability();
 	}, [bgVids]);
 
+	const [flagSelected, setFlagSelected] = useState("US");
+
 	return (
 		<div className="container-intro">
 			<div className="intro-text-content">
 				<h1>{translations.name}</h1>
 				<h2>{translations.profileDescription}</h2>
-				<button onClick={() => navigate("/portfolio/home")}>{translations.btn}</button>
+				<button onClick={() => navigate("/portfolio/home")}>
+					{translations.btn}
+				</button>
 			</div>
 
+			<ReactFlagsSelect
+				selected={flagSelected}
+				onSelect={(code) => {
+					setFlagSelected(code);
+					newLanguage("US" === code ? "en" : "es");
+				}}
+				countries={["US", "ES"]}
+				className="flag-selector"
+				selectButtonClassName="flag-pop-up-menu"
+				customLabels={{ US: translations.usFlag, ES: translations.esFlag }}
+			/>
+
 			{!isVideoLoaded && <div className="intro-bg-fallback"></div>}
-            
+
 			{videoSrc && (
 				<video
 					ref={videoRef}
