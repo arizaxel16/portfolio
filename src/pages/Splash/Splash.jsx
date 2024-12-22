@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Splash.scss";
 
 const Splash = () => {
+    const navigate = useNavigate();
+
 	const bgVids = useMemo(
 		() => [
             "https://videos.pexels.com/video-files/8721923/8721923-sd_960_506_25fps.mp4",
@@ -39,7 +42,7 @@ const Splash = () => {
 			<div className="intro-text-content">
 				<h1>AXEL ARIZA</h1>
 				<h2>Software Engineer | FullStack Developer</h2>
-				<button>Enter</button>
+				<button onClick={() => navigate("/portfolio/home")}>Enter</button>
 			</div>
 
 			{!isVideoLoaded && <div className="intro-bg-fallback"></div>}
