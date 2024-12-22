@@ -14,6 +14,8 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	transition: background-image 0.5s ease-in-out;
+	background-color: black;
+	z-index: 1;
 
 	.intro-bg-vid {
 		position: absolute;
@@ -24,6 +26,7 @@
 		object-fit: cover;
 		z-index: -1;
 		overflow: hidden;
+		filter: blur(8px);
 	}
 
 	.intro-bg-fallback {
