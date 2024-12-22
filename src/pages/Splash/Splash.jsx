@@ -6,10 +6,7 @@ const Splash = () => {
 	const bgVids = useMemo(
 		() => [
 			"https://videos.pexels.com/video-files/8721923/8721923-sd_960_506_25fps.mp4",
-			"https://videos.pexels.com/video-files/6754818/6754818-uhd_2560_1440_25fps.mp4",
-			"https://videos.pexels.com/video-files/3108007/3108007-sd_640_360_25fps.mp4",
-			"https://videos.pexels.com/video-files/7534239/7534239-sd_640_360_25fps.mp4",
-			"https://videos.pexels.com/video-files/19419586/19419586-sd_640_360_30fps.mp4",
+            "https://videos.pexels.com/video-files/6754818/6754818-uhd_2560_1440_25fps.mp4",
 		],
 		[]
 	);

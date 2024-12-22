@@ -59,24 +59,68 @@
 		}
 
 		button {
-			padding: 0.8rem 2rem;
-			border: none;
-			border-radius: 5px;
-			background-color: #007bff;
-			color: #fff;
+			position: relative;
 			cursor: pointer;
+			background: -webkit-gradient(
+				linear,
+				left top,
+				right top,
+				color-stop(-12.74%, rgba(110, 239, 255, 0.5)),
+				color-stop(56.76%, rgba(106, 224, 255, 0.271))
+			);
+			background: linear-gradient(
+				90deg,
+				rgba(110, 239, 255, 0.5) -12.74%,
+				rgba(106, 224, 255, 0.271) 56.76%
+			);
+			border: 2px solid #acf7ff;
+			color: #ffffff;
+			font-weight: 600;
 			transition: background-color 0.3s, transform 0.2s;
 
+			&:before {
+				content: "";
+				width: 4px;
+				height: 28px;
+				background: #19173b;
+				border: 2px solid #acf7ff;
+				transform: rotate(-45deg);
+				position: absolute;
+				border-top: 0;
+				border-left: 0;
+				bottom: -7px;
+				left: 4px;
+				border-bottom-left-radius: 10px;
+				border-top-left-radius: 10px;
+			}
+
+			&:after {
+				content: "";
+				position: absolute;
+				left: -2px;
+				bottom: -2px;
+				border-top: 15px solid transparent;
+				border-left: 15px solid #fffcf7;
+			}
+
 			&:hover {
-				background-color: #0056b3;
 				transform: scale(1.05);
+				background: linear-gradient(
+					90deg,
+					rgba(33, 229, 255, 0.5) -12.74%,
+					rgba(66, 215, 252, 0.385) 56.76%
+				);
+			}
+
+			&:active {
+				transform: scale(1);
 			}
 		}
 	}
 }
 
 /* Large screens (Computers) */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
 	.intro-text-content {
 		h1 {
 			font-size: 6rem;
@@ -87,28 +131,31 @@
 		}
 
 		button {
-			font-size: 1.2rem;
+			font-size: 1.4rem;
+			width: 250px;
+			height: 60px;
 		}
 	}
 }
 
 /* Medium screens (Tablets) */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 	.intro-text-content {
 		h1 {
-			font-size: 4.5rem;
+			font-size: 5rem;
 		}
 
 		h2 {
-			font-size: 1.7rem;
+			font-size: 1.8rem;
 		}
 
 		button {
-			font-size: 1.1rem;
+			font-size: 1.2rem;
+			width: 220px;
+			height: 55px;
 		}
 	}
 }
-
 
 /* Small screens (Phones) */
 @media (max-width: 576px) {
@@ -118,11 +165,13 @@
 		}
 
 		h2 {
-			font-size: 1.2rem;
+			font-size: 1.4rem;
 		}
 
 		button {
-			font-size: 1rem;
+			font-size: 1.1rem;
+			width: 180px;
+			height: 50px;
 		}
 	}
 }
