@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Splash.scss";
+import { useLanguage } from '../../context/Language/LanguageContext';
+import { en, es } from './SplashStrings';
 
 const Splash = () => {
     const navigate = useNavigate();
@@ -14,6 +16,10 @@ const Splash = () => {
 		],
 		[]
 	);
+
+    const { language } = useLanguage();
+
+    const translations = language === 'en' ? en : es;
 
 	const [videoSrc, setVideoSrc] = useState(null);
 	const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -40,9 +46,9 @@ const Splash = () => {
 	return (
 		<div className="container-intro">
 			<div className="intro-text-content">
-				<h1>AXEL ARIZA</h1>
-				<h2>Software Engineer | FullStack Developer</h2>
-				<button onClick={() => navigate("/portfolio/home")}>Enter</button>
+				<h1>{translations.name}</h1>
+				<h2>{translations.profileDescription}</h2>
+				<button onClick={() => navigate("/portfolio/home")}>{translations.btn}</button>
 			</div>
 
 			{!isVideoLoaded && <div className="intro-bg-fallback"></div>}
