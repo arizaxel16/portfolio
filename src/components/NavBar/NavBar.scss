@@ -1,13 +1,10 @@
 nav {
-	position: fixed;
-	top: 0;
-	left: 0;
 	width: 100%;
 	padding: 16px 20px 30px 20px;
 	display: flex;
 	align-items: center;
 	transition: 0.3s ease-out;
-	backdrop-filter: blur(8px) brightness(1.2);
+	backdrop-filter: blur(8px);
 	text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 	color: white;
 	font-size: 16px;
@@ -19,6 +16,7 @@ nav {
 		text-decoration: none;
 		&:hover,
 		&:focus {
+			padding-bottom: 2px;
 			text-decoration: underline;
 		}
 	}
