@@ -3,7 +3,6 @@
     align-items: center;
     gap: 10px;
     padding: 10px 20px;
-    background-color: #4caf50;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
@@ -11,14 +10,14 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
+  
     &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
-
+  
     .tech-icon {
-        font-size: 24px;
-        color: #fff;
+      font-size: 24px;
     }
-}
+  }
+  

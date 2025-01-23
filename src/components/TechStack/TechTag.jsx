@@ -9,28 +9,33 @@ import { IoLogoAndroid } from "react-icons/io";
 import "./TechTag.scss";
 
 const techIcons = {
-    Java: <FaJava />,
-    Python: <FaPython />,
-    "Spring Boot": <SiSpringboot />,
-    React: <FaReact />,
-    "Node.js": <FaNodeJs />,
-    Javascript: <IoLogoJavascript />,
-    "R Studio": <SiRstudioide />,
-    GitHub: <AiFillGithub />,
-    Jenkins: <DiJenkins />,
-    Rabbitmq: <SiRabbitmq />,
-    "Android Studio": <IoLogoAndroid />,
+  Java: { icon: <FaJava />, color: "#f89820" }, // Oracle Java orange
+  Python: { icon: <FaPython />, color: "#306998" }, // Python blue
+  "Spring Boot": { icon: <SiSpringboot />, color: "#6db33f" }, // Spring green
+  React: { icon: <FaReact />, color: "#61dafb" }, // React blue
+  "Node.js": { icon: <FaNodeJs />, color: "#68a063" }, // Node.js green
+  Javascript: { icon: <IoLogoJavascript />, color: "#f7df1e" }, // JS yellow
+  "R Studio": { icon: <SiRstudioide />, color: "#75aadb" }, // RStudio blue
+  GitHub: { icon: <AiFillGithub />, color: "#181717" }, // GitHub black
+  Jenkins: { icon: <DiJenkins />, color: "#d24939" }, // Jenkins red
+  Rabbitmq: { icon: <SiRabbitmq />, color: "#ff6600" }, // RabbitMQ orange
+  "Android Studio": { icon: <IoLogoAndroid />, color: "#3ddc84" }, // Android green
 };
 
 function TechTag({ name }) {
-    const icon = techIcons[name];
+  const tech = techIcons[name];
 
-    return (
-        <div className="container-techtag">
-            {icon && <span className="tech-icon">{icon}</span>}
-            <h3>{name}</h3>
-        </div>
-    );
+  return (
+    <div
+      className="container-techtag"
+      style={{
+        backgroundColor: tech ? tech.color : "#4caf50", // Default to green if color is missing
+      }}
+    >
+      {tech?.icon && <span className="tech-icon">{tech.icon}</span>}
+      <h3>{name}</h3>
+    </div>
+  );
 }
 
 export default TechTag;
