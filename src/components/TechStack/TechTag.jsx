@@ -1,9 +1,8 @@
 import React from "react";
-import { FaJava, FaPython, FaReact, FaNodeJs } from "react-icons/fa";
+import { FaJava, FaPython, FaReact, FaNodeJs, FaJenkins } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 import { SiSpringboot, SiRstudioide, SiRabbitmq } from "react-icons/si";
 import { AiFillGithub } from "react-icons/ai";
-import { DiJenkins } from "react-icons/di";
 import { IoLogoAndroid } from "react-icons/io";
 
 import "./TechTag.scss";
@@ -17,7 +16,7 @@ const techIcons = {
   Javascript: { icon: <IoLogoJavascript />, color: "#f7df1e" }, // JS yellow
   "R Studio": { icon: <SiRstudioide />, color: "#75aadb" }, // RStudio blue
   GitHub: { icon: <AiFillGithub />, color: "#181717" }, // GitHub black
-  Jenkins: { icon: <DiJenkins />, color: "#d24939" }, // Jenkins red
+  Jenkins: { icon: <FaJenkins /> , color: "#d24939" }, // Jenkins red
   Rabbitmq: { icon: <SiRabbitmq />, color: "#ff6600" }, // RabbitMQ orange
   "Android Studio": { icon: <IoLogoAndroid />, color: "#3ddc84" }, // Android green
 };
