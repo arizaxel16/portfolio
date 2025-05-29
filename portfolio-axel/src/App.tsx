@@ -1,12 +1,12 @@
 import './App.css'
+import HeroBanner from "@/components/HeroBanner/HeroBanner"
 
 function App() {
-
-  return (
-    <>
-      WORKING !
-    </>
-  )
+    return (
+        <main className="min-h-screen flex flex-col">
+            <HeroBanner />
+        </main>
+    )
 }
 
 export default App
