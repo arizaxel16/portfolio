@@ -24,16 +24,16 @@ export default function Header() {
     }
 
     return (
-        <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-                <CodeXml />
+        <header className="fixed top-0 left-0 w-full z-50 bg-white backdrop-blur-md shadow-sm">
+            <div className="mx-6 px-0 py-4 flex items-center justify-between">
+                <CodeXml size={28}/>
 
                 <div className="hidden md:flex gap-6">
                     {navItems.map((item) => (
                         <button
                             key={item.id}
                             onClick={() => scrollToSection(item.id)}
-                            className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+                            className="py-1 px-2 text-sm font-medium text-gray-700 hover:text-black transition-colors hover:border-b-2"
                         >
                             {t(item.label)}
                         </button>
@@ -54,7 +54,7 @@ export default function Header() {
                                         <button
                                             key={item.id}
                                             onClick={() => scrollToSection(item.id)}
-                                            className="text-base text-left text-gray-700 hover:text-black transition-colors"
+                                            className="mx-4 py-1 px-2 text-base text-left text-gray-700 hover:text-black transition-colors hover:border-b-2"
                                         >
                                             {t(item.label)}
                                         </button>

@@ -8,11 +8,11 @@
     }
   },
   "header": {
-    "about": "sobre mí",
-    "skills": "habilidades tecnicas",
-    "projects": "proyectos",
-    "experience": "experiencia",
-    "education": "educación",
-    "contact": "contacto"
+    "about": "Sobre Mí",
+    "skills": "Habilidades Técnicas",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "education": "Educación",
+    "contact": "Contacto"
   }
 }

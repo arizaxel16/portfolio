@@ -8,11 +8,11 @@
     }
   },
   "header": {
-    "about": "about",
-    "skills": "skills",
-    "projects": "projects",
-    "experience": "experience",
-    "education": "education",
-    "contact": "contact"
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "education": "Education",
+    "contact": "Contact"
   }
 }
