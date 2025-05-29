@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "title": "Salut, je suis Axel — Ingénieur en Technologies de l'Information",
+    "subtitle": "Je conçois, développe et déploie des applications",
+    "cta": {
+      "primary": "Mon Travail",
+      "secondary": "À Propos de Moi"
+    }
+  }
+}
