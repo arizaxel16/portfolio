@@ -7,6 +7,13 @@ import HERO_IMG from "../../assets/HERO_BG.jpg"
 export default function HeroBanner() {
     const { t } = useTranslation()
 
+    const scrollToSection = (id: string) => {
+        const section = document.getElementById(id)
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" })
+        }
+    }
+
     return (
         <section
             className={cn(
@@ -34,12 +41,14 @@ export default function HeroBanner() {
                     <Button
                         variant="default"
                         className="text-lg px-6 py-6 shadow-lg transition-transform duration-150 hover:scale-95 active:scale-90"
+                        onClick={() => scrollToSection("work")}
                     >
                         {t("hero.cta.primary")}
                     </Button>
                     <Button
                         variant="outline"
                         className="text-lg px-6 py-6 border-white text-black transition-transform duration-150 hover:scale-95 active:scale-90"
+                        onClick={() => scrollToSection("contact")}
                     >
                         {t("hero.cta.secondary")}
                     </Button>

@@ -5,7 +5,6 @@ import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.tsx"
 import { useTranslation } from "react-i18next"
 
 const navItems = [
-    { id: "about", label: "header.about" },
     { id: "skills", label: "header.skills" },
     { id: "projects", label: "header.projects" },
     { id: "experience", label: "header.experience" },

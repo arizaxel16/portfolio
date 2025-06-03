@@ -113,6 +113,7 @@ export default function Skills() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="max-w-5xl mx-auto px-4 py-8"
+            id="skills"
         >
             <h2 className="text-3xl font-bold mb-6 text-center">{t("skills.title")}</h2>
 
