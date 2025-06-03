@@ -117,7 +117,7 @@ export default function Skills() {
             <h2 className="text-3xl font-bold mb-6 text-center">{t("skills.title")}</h2>
 
             <Tabs value={tabValue} onValueChange={setTabValue}>
-                <TabsList className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 mb-6">
+                <TabsList className="flex flex-wrap justify-center gap-2 mb-6 w-full">
                     <TabsTrigger value="frontend">{t("skills.frontend")}</TabsTrigger>
                     <TabsTrigger value="backend">{t("skills.backend")}</TabsTrigger>
                     <TabsTrigger value="databases">{t("skills.databases")}</TabsTrigger>
