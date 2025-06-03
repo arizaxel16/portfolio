@@ -25,5 +25,12 @@
     "data": "Analytics",
     "embedded": "Hardware",
     "tools": "Tools"
+  },
+  "work": {
+    "title": "Work",
+    "subtitle": "Professional Roles, Personal Projects & Key Events",
+    "experienceTab": "Experience",
+    "projectsTab": "Projects",
+    "eventsTab": "Events"
   }
 }

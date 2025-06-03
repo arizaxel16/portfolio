@@ -2,6 +2,7 @@ import './App.css'
 import HeroBanner from "@/components/HeroBanner/HeroBanner"
 import Header from "@/components/Header/Header.tsx";
 import Skills from "@/components/Skills/Skills.tsx";
+import Work from "@/components/Work/Work.tsx";
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
             <Header />
             <HeroBanner />
             <Skills />
+            <Work />
         </main>
     )
 }
