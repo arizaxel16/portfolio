@@ -1,4 +1,3 @@
-// src/components/Skills.tsx
 import { useState } from "react"
 import {
     Tabs,
@@ -16,7 +15,6 @@ import {
     SiJavascript,
     SiTypescript,
     SiReact,
-    SiReactrouter,
     SiFlutter,
     SiBootstrap,
     SiTailwindcss,
@@ -26,10 +24,8 @@ import {
     SiGraphql,
     SiRabbitmq,
     SiPostgresql,
-    SiMysql,
     SiMariadb,
     SiMongodb,
-    SiFirebase,
     SiDocker,
     SiKubernetes,
     SiGooglecloud,
@@ -52,10 +48,12 @@ import {
     SiPostman,
     SiSwagger,
     SiSonarqube,
-    SiGoogle,
     SiWireshark,
     SiApachekafka,
     SiGithubactions,
+    SiVite,
+    SiCreatereactapp,
+    SiJest,
 } from "react-icons/si"
 
 import {
@@ -81,17 +79,22 @@ import {
     ServerCogIcon,
     ZapIcon,
     CpuIcon,
-    Code,
     Calculator,
 } from "lucide-react"
 import { TbAccessible } from "react-icons/tb"
-import { FaAws, FaBinoculars, FaJava, FaNetworkWired, FaWindows } from "react-icons/fa"
+import {FaAws, FaBinoculars, FaGoogle, FaJava, FaJenkins, FaNetworkWired, FaNpm, FaWindows} from "react-icons/fa"
 import { BiLogoVisualStudio, BiTestTube } from "react-icons/bi"
 import { FaMicrochip } from "react-icons/fa6"
 import { LuMicrochip } from "react-icons/lu"
 import { BsMicrosoftTeams } from "react-icons/bs"
+import { useTranslation } from "react-i18next";
+import { IoLogoFirebase } from "react-icons/io5";
+import { GrMysql } from "react-icons/gr";
+import { GoAlertFill } from "react-icons/go";
 
 export default function Skills() {
+    const { t } = useTranslation()
+
     const [tabValue, setTabValue] = useState<string>("frontend")
 
     const TagCard: React.FC<{ icon: React.ReactNode; label: string }> = ({
@@ -111,18 +114,18 @@ export default function Skills() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="max-w-5xl mx-auto px-4 py-8"
         >
-            <h2 className="text-3xl font-bold mb-6 text-center">My Skills</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center">{t("skills.title")}</h2>
 
             <Tabs value={tabValue} onValueChange={setTabValue}>
                 <TabsList className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 mb-6">
-                    <TabsTrigger value="frontend">Frontend</TabsTrigger>
-                    <TabsTrigger value="backend">Backend</TabsTrigger>
-                    <TabsTrigger value="databases">Databases</TabsTrigger>
-                    <TabsTrigger value="devops">DevOps</TabsTrigger>
-                    <TabsTrigger value="security">IT</TabsTrigger>
-                    <TabsTrigger value="data">Analytics</TabsTrigger>
-                    <TabsTrigger value="embedded">Hardware</TabsTrigger>
-                    <TabsTrigger value="tools">Tools</TabsTrigger>
+                    <TabsTrigger value="frontend">{t("skills.frontend")}</TabsTrigger>
+                    <TabsTrigger value="backend">{t("skills.backend")}</TabsTrigger>
+                    <TabsTrigger value="databases">{t("skills.databases")}</TabsTrigger>
+                    <TabsTrigger value="devops">{t("skills.devops")}</TabsTrigger>
+                    <TabsTrigger value="security">{t("skills.security")}</TabsTrigger>
+                    <TabsTrigger value="data">{t("skills.data")}</TabsTrigger>
+                    <TabsTrigger value="embedded">{t("skills.embedded")}</TabsTrigger>
+                    <TabsTrigger value="tools">{t("skills.tools")}</TabsTrigger>
                 </TabsList>
 
                 {/* ──────────────── FRONTEND ──────────────── */}
@@ -131,7 +134,7 @@ export default function Skills() {
                         {/* Languages & Markup */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Languages &amp; Markup
+                                Languages
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<SiHtml5 size={32} />} label="HTML5" />
@@ -145,11 +148,11 @@ export default function Skills() {
                         {/* Frameworks & Libraries */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Frameworks &amp; Libraries
+                                Frameworks
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<SiReact size={32} />} label="React" />
-                                <TagCard icon={<SiReactrouter size={32} />} label="React Native" />
+                                <TagCard icon={<SiCreatereactapp size={32} />} label="React Native" />
                                 <TagCard icon={<SiFlutter size={32} />} label="Flutter" />
                                 <TagCard icon={<SiBootstrap size={32} />} label="Bootstrap" />
                                 <TagCard icon={<SiTailwindcss size={32} />} label="Tailwind CSS" />
@@ -158,34 +161,33 @@ export default function Skills() {
 
                         {/* Styling & UI */}
                         <div>
-                            <h3 className="text-xl font-semibold mb-2">Styling &amp; UI</h3>
+                            <h3 className="text-xl font-semibold mb-2">UI</h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<Monitor size={32} />} label="Responsive" />
                                 <TagCard icon={<Layout size={32} />} label="UX/UI" />
-                                <TagCard icon={<TbAccessible size={32} />} label="Accessibility" />
+                                <TagCard icon={<TbAccessible size={32} />} label="a11y" />
                             </div>
                         </div>
 
                         {/* Build & Bundling */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Build &amp; Bundling
+                                Bundling
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
-                                <TagCard icon={<Code size={32} />} label="Vite" />
-                                <TagCard icon={<Calculator size={32} />} label="npm" />
-                                <TagCard icon={<Code size={32} />} label="SPA" />
+                                <TagCard icon={<SiVite size={32} />} label="Vite" />
+                                <TagCard icon={<FaNpm size={32} />} label="npm" />
+                                <TagCard icon={<Layers size={32} />} label="SPA" />
                             </div>
                         </div>
 
                         {/* Testing (Frontend) */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Testing (Frontend)
+                                Testing
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
-                                <TagCard icon={<SiJavascript size={32} />} label="Jest" />
-                                <TagCard icon={<CpuIcon size={32} />} label="a11y" />
+                                <TagCard icon={<SiJest size={32} />} label="Jest" />
                             </div>
                         </div>
                     </div>
@@ -230,16 +232,16 @@ export default function Skills() {
                                 <TagCard icon={<Layers size={32} />} label="SOLID" />
                                 <TagCard icon={<BookOpenIcon size={32} />} label="DDD" />
                                 <TagCard icon={<Hexagon size={32} />} label="Hexagonal" />
+                                <TagCard icon={<ServerCogIcon size={32} />} label="Microservices" />
                             </div>
                         </div>
 
                         {/* Microservices & Messaging */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Microservices &amp; Messaging
+                                Messaging
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
-                                <TagCard icon={<ServerCogIcon size={32} />} label="Microservices" />
                                 <TagCard icon={<SiRabbitmq size={32} />} label="RabbitMQ" />
                                 <TagCard icon={<SiApachekafka size={32} />} label="Kafka" />
                             </div>
@@ -259,7 +261,7 @@ export default function Skills() {
                         {/* Testing (Backend) */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Testing (Backend)
+                                Testing
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<BiTestTube size={32} />} label="Mockito" />
@@ -278,7 +280,7 @@ export default function Skills() {
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<SiPostgresql size={32} />} label="PostgreSQL" />
-                                <TagCard icon={<SiMysql size={32} />} label="MySQL" />
+                                <TagCard icon={<GrMysql size={32} />} label="MySQL" />
                                 <TagCard icon={<SiMariadb size={32} />} label="MariaDB" />
                             </div>
                         </div>
@@ -288,7 +290,7 @@ export default function Skills() {
                             <h3 className="text-xl font-semibold mb-2">NoSQL Databases</h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<SiMongodb size={32} />} label="MongoDB" />
-                                <TagCard icon={<SiFirebase size={32} />} label="Firebase" />
+                                <TagCard icon={<IoLogoFirebase size={32} />} label="Firebase" />
                             </div>
                         </div>
 
@@ -313,12 +315,13 @@ export default function Skills() {
                         {/* CI/CD & IaC */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                CI/CD &amp; IaC
+                                CI/CD
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<GitPullRequest size={32} />} label="CI/CD Pipelines" />
                                 <TagCard icon={<Terminal size={32} />} label="Infrastructure as Code" />
                                 <TagCard icon={<SiGithubactions size={32} />} label="GitHub Actions" />
+                                <TagCard icon={<FaJenkins size={32} />} label="Jenkins" />
                             </div>
                         </div>
 
@@ -345,7 +348,7 @@ export default function Skills() {
                         {/* Monitoring & Performance Testing */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Monitoring &amp; Performance Testing
+                                Monitoring
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<SiNewrelic size={32} />} label="New Relic" />
@@ -368,7 +371,7 @@ export default function Skills() {
                                 <TagCard icon={<Shield size={32} />} label="pfSense" />
                                 <TagCard icon={<ShieldCheck size={32} />} label="SSL/TLS" />
                                 <TagCard icon={<ShieldOff size={32} />} label="Pen Testing" />
-                                <TagCard icon={<Users size={32} />} label="Risk Mgmt" />
+                                <TagCard icon={<GoAlertFill size={32} />} label="Risk Management" />
                                 <TagCard icon={<SiWireshark size={32} />} label="Wireshark" />
                             </div>
                         </div>
@@ -376,7 +379,7 @@ export default function Skills() {
                         {/* Authentication & Access */}
                         <div>
                             <h3 className="text-xl font-semibold mb-2">
-                                Authentication &amp; Access
+                                Authentication
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<Users size={32} />} label="Active Directory" />
@@ -441,10 +444,7 @@ export default function Skills() {
                         <div>
                             <h3 className="text-xl font-semibold mb-2">Web Analytics</h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
-                                <TagCard
-                                    icon={<SiGoogleanalytics size={32} />}
-                                    label="Google Analytics"
-                                />
+                                <TagCard icon={<SiGoogleanalytics size={32} />} label="Google Analytics"/>
                             </div>
                         </div>
                     </div>
@@ -462,10 +462,7 @@ export default function Skills() {
                                 <TagCard icon={<FaMicrochip size={32} />} label="Circuit Design" />
                                 <TagCard icon={<LuMicrochip size={32} />} label="PIC" />
                                 <TagCard icon={<SiArduino size={32} />} label="Arduino" />
-                                <TagCard
-                                    icon={<SiRaspberrypi size={32} />}
-                                    label="Raspberry Pi"
-                                />
+                                <TagCard icon={<SiRaspberrypi size={32} />} label="Raspberry Pi"/>
                             </div>
                         </div>
 
@@ -478,7 +475,6 @@ export default function Skills() {
                                 <TagCard icon={<FileCode2 size={32} />} label="Multisim" />
                                 <TagCard icon={<ZapIcon size={32} />} label="SPICE" />
                                 <TagCard icon={<Settings size={32} />} label="Proteus" />
-                                <TagCard icon={<Code size={32} />} label="Verilog" />
                             </div>
                         </div>
                     </div>
@@ -503,18 +499,9 @@ export default function Skills() {
                         <div>
                             <h3 className="text-xl font-semibold mb-2">IDEs &amp; Editors</h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
-                                <TagCard
-                                    icon={<BiLogoVisualStudio size={32} />}
-                                    label="VS Code"
-                                />
-                                <TagCard
-                                    icon={<SiIntellijidea size={32} />}
-                                    label="IntelliJ IDEA"
-                                />
-                                <TagCard
-                                    icon={<SiAndroidstudio size={32} />}
-                                    label="Android Studio"
-                                />
+                                <TagCard icon={<BiLogoVisualStudio size={32} />} label="VS Code"/>
+                                <TagCard icon={<SiIntellijidea size={32} />} label="IntelliJ IDEA"/>
+                                <TagCard icon={<SiAndroidstudio size={32} />} label="Android Studio"/>
                             </div>
                         </div>
 
@@ -536,11 +523,11 @@ export default function Skills() {
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
                                 <TagCard icon={<SiSonarqube size={32} />} label="SonarQube" />
-                                <TagCard icon={<BiTestTube size={32} />} label="Jest" />
-                                <TagCard
-                                    icon={<SiGithubactions size={32} />}
-                                    label="GitHub Actions"
-                                />
+                                <TagCard icon={<SiJest size={32} />} label="Jest" />
+                                <TagCard icon={<SiGithubactions size={32} />} label="GitHub Actions"/>
+                                <TagCard icon={<FaJenkins size={32} />} label="Jenkins" />
+                                <TagCard icon={<SiNewrelic size={32} />} label="New Relic" />
+
                             </div>
                         </div>
 
@@ -550,11 +537,8 @@ export default function Skills() {
                                 Communication &amp; Office
                             </h3>
                             <div className="flex flex-row flex-wrap justify-start items-center gap-2">
-                                <TagCard
-                                    icon={<BsMicrosoftTeams size={32} />}
-                                    label="Microsoft Teams"
-                                />
-                                <TagCard icon={<SiGoogle size={32} />} label="Google Workspace" />
+                                <TagCard icon={<BsMicrosoftTeams size={32} />} label="Microsoft Teams"/>
+                                <TagCard icon={<FaGoogle size={32} />} label="Google Workspace" />
                             </div>
                         </div>
                     </div>

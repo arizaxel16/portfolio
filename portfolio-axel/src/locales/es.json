@@ -4,7 +4,7 @@
     "subtitle": "Diseño, desarrollo y despliego aplicaciones",
     "cta": {
       "primary": "Mis Trabajos",
-      "secondary": "Sobre Mí"
+      "secondary": "Contáctame"
     }
   },
   "header": {
@@ -14,5 +14,16 @@
     "experience": "Experiencia",
     "education": "Educación",
     "contact": "Contacto"
+  },
+  "skills": {
+    "title": "Mis Habilidades",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "databases": "Bases de Datos",
+    "devops": "DevOps",
+    "security": "TI",
+    "data": "Analítica",
+    "embedded": "Hardware",
+    "tools": "Herramientas"
   }
 }

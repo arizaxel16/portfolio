@@ -4,7 +4,7 @@
     "subtitle": "I design, develop and deploy apps",
     "cta": {
       "primary": "My Work",
-      "secondary": "About Me"
+      "secondary": "Contact Me"
     }
   },
   "header": {
@@ -14,5 +14,16 @@
     "experience": "Experience",
     "education": "Education",
     "contact": "Contact"
+  },
+  "skills": {
+    "title": "My Skills",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "databases": "Databases",
+    "devops": "DevOps",
+    "security": "IT",
+    "data": "Analytics",
+    "embedded": "Hardware",
+    "tools": "Tools"
   }
 }

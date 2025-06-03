@@ -4,7 +4,7 @@
     "subtitle": "Je conçois, développe et déploie des applications",
     "cta": {
       "primary": "Mon Travail",
-      "secondary": "À Propos de Moi"
+      "secondary": "Contacté Moi"
     }
   },
   "header": {
@@ -14,5 +14,16 @@
     "experience": "Expérience",
     "education": "Formation",
     "contact": "Contact"
+  },
+  "skills": {
+    "title": "Mon Habilités",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "databases": "Databases",
+    "devops": "DevOps",
+    "security": "IT",
+    "data": "Analytique",
+    "embedded": "Hardware",
+    "tools": "Outils"
   }
 }
