@@ -6,6 +6,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
+import SPA from '../../assets/logos/SPA.png'
+import SPA_IMG from '../../assets/img/SPA_IMG.png'
+import RANGO from '../../assets/logos/RANGO.png'
+import RANGO_IMG from '../../assets/img/RANGO_IMG.png'
+import SABANA from '../../assets/logos/SABANA.png'
+
 
 interface EntryProps {
     date: string
@@ -24,7 +30,7 @@ const isImage = (src: string) =>
 
 // ─── Subcomponent Templates ────────────────────────────────────────────────────
 
-// Redesigned card layout: media at top, then text, then link.
+// Redesigned: text at top, media at bottom, optional link
 function ExperienceEntry({
                              date,
                              title,
@@ -35,15 +41,6 @@ function ExperienceEntry({
                              videoSrc,
                              url,
                          }: EntryProps) {
-    const CardWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
-        url ? (
-            <a href={url} target="_blank" rel="noopener noreferrer">
-                {children}
-            </a>
-        ) : (
-            <>{children}</>
-        )
-
     return (
         <div className="flex flex-col lg:flex-row lg:items-start">
             {/* Date Column */}
@@ -61,61 +58,59 @@ function ExperienceEntry({
                 transition={{ duration: 0.4 }}
                 className="lg:w-3/4"
             >
-                <CardWrapper>
-                    <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-blue-500 bg-white">
-                        <CardContent className="p-6 space-y-6">
-                            {/* Media Section */}
-                            {(logoSrc || imageSrc || videoSrc) && (
-                                <div className="flex flex-col md:flex-row gap-4">
-                                    {logoSrc && (
-                                        <Avatar className="h-12 w-12">
-                                            <AvatarImage src={logoSrc} alt={`${title} logo`} />
-                                            <AvatarFallback>{title.charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                    )}
-                                    {imageSrc && isImage(imageSrc) && (
-                                        <img
-                                            src={imageSrc}
-                                            alt={`${title} image`}
-                                            className="w-full md:w-1/2 rounded-lg object-cover"
-                                        />
-                                    )}
-                                    {videoSrc && isVideo(videoSrc) && (
-                                        <video
-                                            src={videoSrc}
-                                            controls
-                                            className="w-full md:w-1/2 rounded-lg object-cover"
-                                        />
-                                    )}
-                                </div>
+                <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-blue-500 bg-white">
+                    <CardContent className="p-6 space-y-6">
+                        {/* Text Section */}
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-bold text-blue-700">{title}</h3>
+                            {subtitle && (
+                                <span className="text-sm text-blue-500 italic">{subtitle}</span>
                             )}
+                            <p className="text-gray-800">{description}</p>
+                        </div>
 
-                            {/* Text Section */}
-                            <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-blue-700">{title}</h3>
-                                {subtitle && (
-                                    <span className="text-sm text-blue-500 italic">{subtitle}</span>
+                        {/* Media Section at Bottom */}
+                        {(logoSrc || imageSrc || videoSrc) && (
+                            <div className="flex flex-col md:flex-row gap-4">
+                                {logoSrc && (
+                                    <Avatar className="h-12 w-12">
+                                        <AvatarImage src={logoSrc} alt={`${title} logo`} />
+                                        <AvatarFallback>{title.charAt(0)}</AvatarFallback>
+                                    </Avatar>
                                 )}
-                                <p className="text-gray-800">{description}</p>
+                                {imageSrc && isImage(imageSrc) && (
+                                    <img
+                                        src={imageSrc}
+                                        alt={`${title} image`}
+                                        className="w-full md:w-1/2 rounded-lg object-cover"
+                                    />
+                                )}
+                                {videoSrc && isVideo(videoSrc) && (
+                                    <video
+                                        src={videoSrc}
+                                        controls
+                                        className="w-full md:w-1/2 rounded-lg object-cover"
+                                    />
+                                )}
                             </div>
+                        )}
 
-                            {/* Link Section */}
-                            {url && (
-                                <div>
-                                    <a
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center text-blue-600 hover:underline"
-                                    >
-                                        <ExternalLink className="mr-1 h-4 w-4" />
-                                        Visit Link
-                                    </a>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
-                </CardWrapper>
+                        {/* Optional Link */}
+                        {url && (
+                            <div>
+                                <a
+                                    href={url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center text-blue-600 hover:underline"
+                                >
+                                    <ExternalLink className="mr-1 h-4 w-4" />
+                                    Visit Link
+                                </a>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
             </motion.div>
         </div>
     )
@@ -131,15 +126,6 @@ function ProjectEntry({
                           videoSrc,
                           url,
                       }: EntryProps) {
-    const CardWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
-        url ? (
-            <a href={url} target="_blank" rel="noopener noreferrer">
-                {children}
-            </a>
-        ) : (
-            <>{children}</>
-        )
-
     return (
         <div className="flex flex-col lg:flex-row lg:items-start">
             <div className="lg:w-1/4 text-sm text-gray-400 mb-4 lg:mb-0">{date}</div>
@@ -152,56 +138,54 @@ function ProjectEntry({
                 transition={{ duration: 0.4 }}
                 className="lg:w-3/4"
             >
-                <CardWrapper>
-                    <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-green-500 bg-white">
-                        <CardContent className="p-6 space-y-6">
-                            {(logoSrc || imageSrc || videoSrc) && (
-                                <div className="flex flex-col md:flex-row gap-4">
-                                    {logoSrc && (
-                                        <Avatar className="h-12 w-12">
-                                            <AvatarImage src={logoSrc} alt={`${title} logo`} />
-                                            <AvatarFallback>{title.charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                    )}
-                                    {imageSrc && isImage(imageSrc) && (
-                                        <img
-                                            src={imageSrc}
-                                            alt={`${title} image`}
-                                            className="w-full md:w-1/2 rounded-lg object-cover"
-                                        />
-                                    )}
-                                    {videoSrc && isVideo(videoSrc) && (
-                                        <video
-                                            src={videoSrc}
-                                            controls
-                                            className="w-full md:w-1/2 rounded-lg object-cover"
-                                        />
-                                    )}
-                                </div>
+                <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-green-500 bg-white">
+                    <CardContent className="p-6 space-y-6">
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-bold text-green-700">{title}</h3>
+                            {subtitle && (
+                                <span className="text-sm text-green-500 italic">{subtitle}</span>
                             )}
-                            <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-green-700">{title}</h3>
-                                {subtitle && (
-                                    <span className="text-sm text-green-500 italic">{subtitle}</span>
+                            <p className="text-gray-800">{description}</p>
+                        </div>
+                        {(logoSrc || imageSrc || videoSrc) && (
+                            <div className="flex flex-col md:flex-row gap-4">
+                                {logoSrc && (
+                                    <Avatar className="h-12 w-12">
+                                        <AvatarImage src={logoSrc} alt={`${title} logo`} />
+                                        <AvatarFallback>{title.charAt(0)}</AvatarFallback>
+                                    </Avatar>
                                 )}
-                                <p className="text-gray-800">{description}</p>
+                                {imageSrc && isImage(imageSrc) && (
+                                    <img
+                                        src={imageSrc}
+                                        alt={`${title} image`}
+                                        className="w-full md:w-1/2 rounded-lg object-cover"
+                                    />
+                                )}
+                                {videoSrc && isVideo(videoSrc) && (
+                                    <video
+                                        src={videoSrc}
+                                        controls
+                                        className="w-full md:w-1/2 rounded-lg object-cover"
+                                    />
+                                )}
                             </div>
-                            {url && (
-                                <div>
-                                    <a
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center text-green-600 hover:underline"
-                                    >
-                                        <ExternalLink className="mr-1 h-4 w-4" />
-                                        Visit Link
-                                    </a>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
-                </CardWrapper>
+                        )}
+                        {url && (
+                            <div>
+                                <a
+                                    href={url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center text-green-600 hover:underline"
+                                >
+                                    <ExternalLink className="mr-1 h-4 w-4" />
+                                    Visit Link
+                                </a>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
             </motion.div>
         </div>
     )
@@ -217,15 +201,6 @@ function EventEntry({
                         videoSrc,
                         url,
                     }: EntryProps) {
-    const CardWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
-        url ? (
-            <a href={url} target="_blank" rel="noopener noreferrer">
-                {children}
-            </a>
-        ) : (
-            <>{children}</>
-        )
-
     return (
         <div className="flex flex-col lg:flex-row lg:items-start">
             <div className="lg:w-1/4 text-sm text-gray-400 mb-4 lg:mb-0">{date}</div>
@@ -238,56 +213,54 @@ function EventEntry({
                 transition={{ duration: 0.4 }}
                 className="lg:w-3/4"
             >
-                <CardWrapper>
-                    <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-purple-500 bg-white">
-                        <CardContent className="p-6 space-y-6">
-                            {(logoSrc || imageSrc || videoSrc) && (
-                                <div className="flex flex-col md:flex-row gap-4">
-                                    {logoSrc && (
-                                        <Avatar className="h-12 w-12">
-                                            <AvatarImage src={logoSrc} alt={`${title} logo`} />
-                                            <AvatarFallback>{title.charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                    )}
-                                    {imageSrc && isImage(imageSrc) && (
-                                        <img
-                                            src={imageSrc}
-                                            alt={`${title} image`}
-                                            className="w-full md:w-1/2 rounded-lg object-cover"
-                                        />
-                                    )}
-                                    {videoSrc && isVideo(videoSrc) && (
-                                        <video
-                                            src={videoSrc}
-                                            controls
-                                            className="w-full md:w-1/2 rounded-lg object-cover"
-                                        />
-                                    )}
-                                </div>
+                <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-purple-500 bg-white">
+                    <CardContent className="p-6 space-y-6">
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-bold text-purple-700">{title}</h3>
+                            {subtitle && (
+                                <span className="text-sm text-purple-500 italic">{subtitle}</span>
                             )}
-                            <div className="space-y-2">
-                                <h3 className="text-2xl font-bold text-purple-700">{title}</h3>
-                                {subtitle && (
-                                    <span className="text-sm text-purple-500 italic">{subtitle}</span>
+                            <p className="text-gray-800">{description}</p>
+                        </div>
+                        {(logoSrc || imageSrc || videoSrc) && (
+                            <div className="flex flex-col md:flex-row gap-4">
+                                {logoSrc && (
+                                    <Avatar className="h-12 w-12">
+                                        <AvatarImage src={logoSrc} alt={`${title} logo`} />
+                                        <AvatarFallback>{title.charAt(0)}</AvatarFallback>
+                                    </Avatar>
                                 )}
-                                <p className="text-gray-800">{description}</p>
+                                {imageSrc && isImage(imageSrc) && (
+                                    <img
+                                        src={imageSrc}
+                                        alt={`${title} image`}
+                                        className="w-full md:w-1/2 rounded-lg object-cover"
+                                    />
+                                )}
+                                {videoSrc && isVideo(videoSrc) && (
+                                    <video
+                                        src={videoSrc}
+                                        controls
+                                        className="w-full md:w-1/2 rounded-lg object-cover"
+                                    />
+                                )}
                             </div>
-                            {url && (
-                                <div>
-                                    <a
-                                        href={url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center text-purple-600 hover:underline"
-                                    >
-                                        <ExternalLink className="mr-1 h-4 w-4" />
-                                        Visit Link
-                                    </a>
-                                </div>
-                            )}
-                        </CardContent>
-                    </Card>
-                </CardWrapper>
+                        )}
+                        {url && (
+                            <div>
+                                <a
+                                    href={url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center text-purple-600 hover:underline"
+                                >
+                                    <ExternalLink className="mr-1 h-4 w-4" />
+                                    Visit Link
+                                </a>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
             </motion.div>
         </div>
     )
@@ -311,8 +284,9 @@ const EXPERIENCE_LIST: WorkDTO[] = [
         title: "Rango",
         subtitle: "Founder",
         description:
-            "Founded a university professor review site with 100+ active users [rangoprofe.com].",
-        logoSrc: "/logos/rango-logo.png",
+            "Founded a university professor review site with 100+ active users [rangoprofe.com]",
+        logoSrc: RANGO,
+        imageSrc: RANGO_IMG,
         url: "https://rangoprofe.com",
     },
     {
@@ -320,9 +294,9 @@ const EXPERIENCE_LIST: WorkDTO[] = [
         title: "Frontend Developer",
         subtitle: "Freelance",
         description:
-            "Built and deployed a spa business' website to increase client traffic [relajatespa.com].",
-        logoSrc: "/logos/spa-logo.png",
-        imageSrc: "/images/spa-screenshot.png",
+            "Built and deployed a spa business' website to increase client traffic [relajatespa.com]",
+        logoSrc: SPA,
+        imageSrc: SPA_IMG,
         url: "https://relajatespa.com",
     },
     {
@@ -330,10 +304,8 @@ const EXPERIENCE_LIST: WorkDTO[] = [
         title: "Android Developer",
         subtitle: "Freelance",
         description:
-            "Built a mobile app for a spa business with in-app reservations and admin panel.",
-        logoSrc: "/logos/spa-logo.png",
-        videoSrc: "/vid/spa-demo.mp4",
-        url: "https://play.google.com/spa-app",
+            "Built a mobile app for a spa business with in-app reservations and admin panel",
+        logoSrc: SPA,
     },
 ]
 
@@ -344,8 +316,8 @@ const PROJECTS_LIST: WorkDTO[] = [
         subtitle: "University Project",
         description:
             "Developed a hand gesture tracker with Python for gesture and emotion recognition.",
+        logoSrc: SABANA,
         videoSrc: "/vid/GESTURE.mp4",
-        url: "https://github.com/username/gesture-ai",
     },
     {
         date: "May 2024",
@@ -353,8 +325,9 @@ const PROJECTS_LIST: WorkDTO[] = [
         subtitle: "University Project",
         description:
             "Built a fully functional small-scale elevator with digital logic.",
+        logoSrc: SABANA,
+        // imageSrc: ELEVATOR_IMG,
         videoSrc: "/vid/ELEVATOR.mp4",
-        url: "https://github.com/username/elevator-design",
     },
 ]
 
@@ -362,18 +335,14 @@ const EVENTS_LIST: WorkDTO[] = [
     {
         date: "May 2024",
         title: "2nd Place – Game Jam",
-        subtitle: "Team “ByteBuilders”",
         description: "Created a sci-fi horror game with Unreal Engine.",
-        logoSrc: "/events/hackathon-badge.png",
-        imageSrc: "/images/game-jam-screenshot.png",
-        url: "https://itch.io/jam/game-jam",
+        logoSrc: SABANA,
     },
     {
         date: "Nov 2022",
         title: "UniSabana Hackathon '22",
-        subtitle: "Universidad de la Sabana",
+        logoSrc: SABANA,
         description: "Participated in my first ever hackathon.",
-        url: "https://unisabana.edu/hackathon22",
     },
 ]
 
