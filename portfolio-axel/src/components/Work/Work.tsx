@@ -1,152 +1,293 @@
+// src/components/Work.tsx
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { motion } from "framer-motion"
+import { ExternalLink } from "lucide-react"
 
-// ─── Subcomponent Templates ────────────────────────────────────────────────────
 interface EntryProps {
     date: string
     title: string
     subtitle?: string
-    description: string | string[]
-    imgSrc?: string // optional photo/logo URL
+    description: string
+    logoSrc?: string       // optional badge/logo
+    imageSrc?: string      // optional image
+    videoSrc?: string      // optional video
+    url?: string           // optional link URL
 }
 
-// Experience entry: blue accent
-function ExperienceEntry({ date, title, subtitle, description, imgSrc }: EntryProps) {
+const isVideo = (src: string) => src.endsWith(".mp4") || src.endsWith(".webm")
+const isImage = (src: string) =>
+    src.endsWith(".png") || src.endsWith(".jpg") || src.endsWith(".jpeg") || src.endsWith(".gif")
+
+// ─── Subcomponent Templates ────────────────────────────────────────────────────
+
+// Redesigned card layout: media at top, then text, then link.
+function ExperienceEntry({
+                             date,
+                             title,
+                             subtitle,
+                             description,
+                             logoSrc,
+                             imageSrc,
+                             videoSrc,
+                             url,
+                         }: EntryProps) {
+    const CardWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
+        url ? (
+            <a href={url} target="_blank" rel="noopener noreferrer">
+                {children}
+            </a>
+        ) : (
+            <>{children}</>
+        )
+
     return (
         <div className="flex flex-col lg:flex-row lg:items-start">
-            <div className="lg:w-1/4 text-sm text-gray-400 mb-2 lg:mb-0">{date}</div>
+            {/* Date Column */}
+            <div className="lg:w-1/4 text-sm text-gray-400 mb-4 lg:mb-0">{date}</div>
+
+            {/* Timeline Dot (desktop only) */}
             <div className="hidden lg:flex items-center justify-center w-8">
-                <div className="h-4 w-4 rounded-full bg-blue-500" />
+                <div className="h-4 w-4 -mt-0.5 rounded-full bg-blue-500 transition-all duration-300" />
             </div>
+
+            {/* Card Content */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4 }}
                 className="lg:w-3/4"
             >
-                <Card className="rounded-lg shadow-lg border border-blue-200 bg-white">
-                    <CardContent className="p-6 space-y-2">
-                        <div className="flex items-center space-x-3">
-                            {imgSrc && (
-                                <Avatar className="h-10 w-10">
-                                    <AvatarImage src={imgSrc} alt={`${title} logo`} />
-                                    <AvatarFallback>{title.charAt(0)}</AvatarFallback>
-                                </Avatar>
+                <CardWrapper>
+                    <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-blue-500 bg-white">
+                        <CardContent className="p-6 space-y-6">
+                            {/* Media Section */}
+                            {(logoSrc || imageSrc || videoSrc) && (
+                                <div className="flex flex-col md:flex-row gap-4">
+                                    {logoSrc && (
+                                        <Avatar className="h-12 w-12">
+                                            <AvatarImage src={logoSrc} alt={`${title} logo`} />
+                                            <AvatarFallback>{title.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                    )}
+                                    {imageSrc && isImage(imageSrc) && (
+                                        <img
+                                            src={imageSrc}
+                                            alt={`${title} image`}
+                                            className="w-full md:w-1/2 rounded-lg object-cover"
+                                        />
+                                    )}
+                                    {videoSrc && isVideo(videoSrc) && (
+                                        <video
+                                            src={videoSrc}
+                                            controls
+                                            className="w-full md:w-1/2 rounded-lg object-cover"
+                                        />
+                                    )}
+                                </div>
                             )}
-                            <div>
-                                <h3 className="text-xl font-semibold text-blue-700">{title}</h3>
+
+                            {/* Text Section */}
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold text-blue-700">{title}</h3>
                                 {subtitle && (
-                                    <span className="text-sm text-blue-500">{subtitle}</span>
+                                    <span className="text-sm text-blue-500 italic">{subtitle}</span>
                                 )}
+                                <p className="text-gray-800">{description}</p>
                             </div>
-                        </div>
-                        {typeof description === "string" ? (
-                            <p className="text-gray-700">{description}</p>
-                        ) : (
-                            <ul className="list-disc list-inside text-gray-700">
-                                {description.map((line, idx) => (
-                                    <li key={idx}>{line}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </CardContent>
-                </Card>
+
+                            {/* Link Section */}
+                            {url && (
+                                <div>
+                                    <a
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center text-blue-600 hover:underline"
+                                    >
+                                        <ExternalLink className="mr-1 h-4 w-4" />
+                                        Visit Link
+                                    </a>
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                </CardWrapper>
             </motion.div>
         </div>
     )
 }
 
-// Project entry: green accent
-function ProjectEntry({ date, title, subtitle, description, imgSrc }: EntryProps) {
+function ProjectEntry({
+                          date,
+                          title,
+                          subtitle,
+                          description,
+                          logoSrc,
+                          imageSrc,
+                          videoSrc,
+                          url,
+                      }: EntryProps) {
+    const CardWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
+        url ? (
+            <a href={url} target="_blank" rel="noopener noreferrer">
+                {children}
+            </a>
+        ) : (
+            <>{children}</>
+        )
+
     return (
         <div className="flex flex-col lg:flex-row lg:items-start">
-            <div className="lg:w-1/4 text-sm text-gray-400 mb-2 lg:mb-0">{date}</div>
+            <div className="lg:w-1/4 text-sm text-gray-400 mb-4 lg:mb-0">{date}</div>
             <div className="hidden lg:flex items-center justify-center w-8">
-                <div className="h-4 w-4 rounded-full bg-green-500" />
+                <div className="h-4 w-4 -mt-0.5 rounded-full bg-green-500 transition-all duration-300" />
             </div>
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4 }}
                 className="lg:w-3/4"
             >
-                <Card className="rounded-lg shadow-lg border border-green-200 bg-white">
-                    <CardContent className="p-6 space-y-2">
-                        <div className="flex items-center space-x-3">
-                            {imgSrc && (
-                                <Avatar className="h-10 w-10">
-                                    <AvatarImage src={imgSrc} alt={`${title} icon`} />
-                                    <AvatarFallback>{title.charAt(0)}</AvatarFallback>
-                                </Avatar>
+                <CardWrapper>
+                    <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-green-500 bg-white">
+                        <CardContent className="p-6 space-y-6">
+                            {(logoSrc || imageSrc || videoSrc) && (
+                                <div className="flex flex-col md:flex-row gap-4">
+                                    {logoSrc && (
+                                        <Avatar className="h-12 w-12">
+                                            <AvatarImage src={logoSrc} alt={`${title} logo`} />
+                                            <AvatarFallback>{title.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                    )}
+                                    {imageSrc && isImage(imageSrc) && (
+                                        <img
+                                            src={imageSrc}
+                                            alt={`${title} image`}
+                                            className="w-full md:w-1/2 rounded-lg object-cover"
+                                        />
+                                    )}
+                                    {videoSrc && isVideo(videoSrc) && (
+                                        <video
+                                            src={videoSrc}
+                                            controls
+                                            className="w-full md:w-1/2 rounded-lg object-cover"
+                                        />
+                                    )}
+                                </div>
                             )}
-                            <div>
-                                <h3 className="text-xl font-semibold text-green-700">{title}</h3>
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold text-green-700">{title}</h3>
                                 {subtitle && (
-                                    <span className="text-sm text-green-500">{subtitle}</span>
+                                    <span className="text-sm text-green-500 italic">{subtitle}</span>
                                 )}
+                                <p className="text-gray-800">{description}</p>
                             </div>
-                        </div>
-                        {typeof description === "string" ? (
-                            <p className="text-gray-700">{description}</p>
-                        ) : (
-                            <ul className="list-disc list-inside text-gray-700">
-                                {description.map((line, idx) => (
-                                    <li key={idx}>{line}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </CardContent>
-                </Card>
+                            {url && (
+                                <div>
+                                    <a
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center text-green-600 hover:underline"
+                                    >
+                                        <ExternalLink className="mr-1 h-4 w-4" />
+                                        Visit Link
+                                    </a>
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                </CardWrapper>
             </motion.div>
         </div>
     )
 }
 
-// Event entry: purple accent
-function EventEntry({ date, title, subtitle, description, imgSrc }: EntryProps) {
+function EventEntry({
+                        date,
+                        title,
+                        subtitle,
+                        description,
+                        logoSrc,
+                        imageSrc,
+                        videoSrc,
+                        url,
+                    }: EntryProps) {
+    const CardWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
+        url ? (
+            <a href={url} target="_blank" rel="noopener noreferrer">
+                {children}
+            </a>
+        ) : (
+            <>{children}</>
+        )
+
     return (
         <div className="flex flex-col lg:flex-row lg:items-start">
-            <div className="lg:w-1/4 text-sm text-gray-400 mb-2 lg:mb-0">{date}</div>
+            <div className="lg:w-1/4 text-sm text-gray-400 mb-4 lg:mb-0">{date}</div>
             <div className="hidden lg:flex items-center justify-center w-8">
-                <div className="h-4 w-4 rounded-full bg-purple-500" />
+                <div className="h-4 w-4 -mt-0.5 rounded-full bg-purple-500 transition-all duration-300" />
             </div>
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4 }}
                 className="lg:w-3/4"
             >
-                <Card className="rounded-lg shadow-lg border border-purple-200 bg-white">
-                    <CardContent className="p-6 space-y-2">
-                        <div className="flex items-center space-x-3">
-                            {imgSrc && (
-                                <Avatar className="h-10 w-10">
-                                    <AvatarImage src={imgSrc} alt={`${title} badge`} />
-                                    <AvatarFallback>{title.charAt(0)}</AvatarFallback>
-                                </Avatar>
+                <CardWrapper>
+                    <Card className="group rounded-lg shadow-xl border-2 border-transparent hover:border-purple-500 bg-white">
+                        <CardContent className="p-6 space-y-6">
+                            {(logoSrc || imageSrc || videoSrc) && (
+                                <div className="flex flex-col md:flex-row gap-4">
+                                    {logoSrc && (
+                                        <Avatar className="h-12 w-12">
+                                            <AvatarImage src={logoSrc} alt={`${title} logo`} />
+                                            <AvatarFallback>{title.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                    )}
+                                    {imageSrc && isImage(imageSrc) && (
+                                        <img
+                                            src={imageSrc}
+                                            alt={`${title} image`}
+                                            className="w-full md:w-1/2 rounded-lg object-cover"
+                                        />
+                                    )}
+                                    {videoSrc && isVideo(videoSrc) && (
+                                        <video
+                                            src={videoSrc}
+                                            controls
+                                            className="w-full md:w-1/2 rounded-lg object-cover"
+                                        />
+                                    )}
+                                </div>
                             )}
-                            <div>
-                                <h3 className="text-xl font-semibold text-purple-700">{title}</h3>
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold text-purple-700">{title}</h3>
                                 {subtitle && (
-                                    <span className="text-sm text-purple-500">{subtitle}</span>
+                                    <span className="text-sm text-purple-500 italic">{subtitle}</span>
                                 )}
+                                <p className="text-gray-800">{description}</p>
                             </div>
-                        </div>
-                        {typeof description === "string" ? (
-                            <p className="text-gray-700">{description}</p>
-                        ) : (
-                            <ul className="list-disc list-inside text-gray-700">
-                                {description.map((line, idx) => (
-                                    <li key={idx}>{line}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </CardContent>
-                </Card>
+                            {url && (
+                                <div>
+                                    <a
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center text-purple-600 hover:underline"
+                                    >
+                                        <ExternalLink className="mr-1 h-4 w-4" />
+                                        Visit Link
+                                    </a>
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                </CardWrapper>
             </motion.div>
         </div>
     )
@@ -157,64 +298,82 @@ interface WorkDTO {
     date: string
     title: string
     subtitle?: string
-    description: string | string[]
-    imgSrc?: string
+    description: string
+    logoSrc?: string
+    imageSrc?: string
+    videoSrc?: string
+    url?: string
 }
 
 const EXPERIENCE_LIST: WorkDTO[] = [
     {
-        date: "Jan 2023 – Jun 2023",
-        title: "Frontend Developer @ XYZ Company",
-        subtitle: "Freelance",
-        description: [
-            "Built responsive dashboards using React, TypeScript & Tailwind CSS",
-            "Integrated RESTful APIs and optimized performance by 30%",
-            "Collaborated with designers to improve accessibility (WCAG 2.1)",
-        ],
-        imgSrc: "/logos/xyz-company.png",
+        date: "Jan 2025 – Present",
+        title: "Rango",
+        subtitle: "Founder",
+        description:
+            "Founded a university professor review site with 100+ active users [rangoprofe.com].",
+        logoSrc: "/logos/rango-logo.png",
+        url: "https://rangoprofe.com",
     },
     {
-        date: "Aug 2022 – Dec 2022",
-        title: "Intern @ Universidad de La Sabana",
-        subtitle: "Teaching Assistant – Computer Science Dept.",
+        date: "Nov 2024",
+        title: "Frontend Developer",
+        subtitle: "Freelance",
         description:
-            "Assisted in grading assignments and hosting lab sessions for Data Structures course.",
+            "Built and deployed a spa business' website to increase client traffic [relajatespa.com].",
+        logoSrc: "/logos/spa-logo.png",
+        imageSrc: "/images/spa-screenshot.png",
+        url: "https://relajatespa.com",
+    },
+    {
+        date: "Sept 2024 – Oct 2024",
+        title: "Android Developer",
+        subtitle: "Freelance",
+        description:
+            "Built a mobile app for a spa business with in-app reservations and admin panel.",
+        logoSrc: "/logos/spa-logo.png",
+        videoSrc: "/vid/spa-demo.mp4",
+        url: "https://play.google.com/spa-app",
     },
 ]
 
 const PROJECTS_LIST: WorkDTO[] = [
     {
-        date: "Aug 2022",
-        title: "Rango – Professor Reviews Platform",
-        subtitle: "Personal Project",
+        date: "Nov 2024",
+        title: "Gesture Recognition AI",
+        subtitle: "University Project",
         description:
-            "Built with React, Vite, ShadCN UI and Node.js. Enables students to rate and review professors at Universidad de La Sabana.",
-        imgSrc: "/projects/rango-logo.png",
+            "Developed a hand gesture tracker with Python for gesture and emotion recognition.",
+        videoSrc: "/vid/GESTURE.mp4",
+        url: "https://github.com/username/gesture-ai",
     },
     {
-        date: "May 2022",
-        title: "Portfolio Website",
-        subtitle: "Personal Project",
+        date: "May 2024",
+        title: "Elevator Circuit Design",
+        subtitle: "University Project",
         description:
-            "Developed a responsive portfolio using Vite + TSX, Tailwind CSS, and ShadCN UI components.",
+            "Built a fully functional small-scale elevator with digital logic.",
+        videoSrc: "/vid/ELEVATOR.mp4",
+        url: "https://github.com/username/elevator-design",
     },
 ]
 
 const EVENTS_LIST: WorkDTO[] = [
     {
-        date: "Mar 2022",
-        title: "1st Place – University Hackathon",
+        date: "May 2024",
+        title: "2nd Place – Game Jam",
         subtitle: "Team “ByteBuilders”",
-        description:
-            "Created a real‐time chat app integrated with Firebase & Flutter. Received recognition for best UX/UI design.",
-        imgSrc: "/events/hackathon-badge.png",
+        description: "Created a sci-fi horror game with Unreal Engine.",
+        logoSrc: "/events/hackathon-badge.png",
+        imageSrc: "/images/game-jam-screenshot.png",
+        url: "https://itch.io/jam/game-jam",
     },
     {
-        date: "Nov 2021",
-        title: "Attended DevOps Conference",
-        subtitle: "Bogotá Tech Summit",
-        description:
-            "Participated in workshops on CI/CD pipelines, Kubernetes best practices, and AWS serverless architectures.",
+        date: "Nov 2022",
+        title: "UniSabana Hackathon '22",
+        subtitle: "Universidad de la Sabana",
+        description: "Participated in my first ever hackathon.",
+        url: "https://unisabana.edu/hackathon22",
     },
 ]
 
@@ -229,12 +388,12 @@ export default function Work() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="max-w-5xl mx-auto px-4 py-12 text-white"
+                className="max-w-5xl mx-auto px-4 py-16 text-white"
             >
                 <h2 className="text-3xl font-bold mb-2 text-center">
                     {t("work.title", "Work")}
                 </h2>
-                <p className="text-center text-gray-300 mb-8">
+                <p className="text-center text-gray-300 mb-10">
                     {t(
                         "work.subtitle",
                         "Professional Roles, Personal Projects & Key Events"
@@ -257,7 +416,7 @@ export default function Work() {
                     <TabsContent value="experience">
                         <div className="relative">
                             <div className="hidden lg:block absolute left-1/4 top-0 h-full w-px bg-gray-700" />
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 {EXPERIENCE_LIST.map((item, idx) => (
                                     <ExperienceEntry key={idx} {...item} />
                                 ))}
@@ -268,7 +427,7 @@ export default function Work() {
                     <TabsContent value="projects">
                         <div className="relative">
                             <div className="hidden lg:block absolute left-1/4 top-0 h-full w-px bg-gray-700" />
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 {PROJECTS_LIST.map((item, idx) => (
                                     <ProjectEntry key={idx} {...item} />
                                 ))}
@@ -279,7 +438,7 @@ export default function Work() {
                     <TabsContent value="events">
                         <div className="relative">
                             <div className="hidden lg:block absolute left-1/4 top-0 h-full w-px bg-gray-700" />
-                            <div className="space-y-8">
+                            <div className="space-y-12">
                                 {EVENTS_LIST.map((item, idx) => (
                                     <EventEntry key={idx} {...item} />
                                 ))}
